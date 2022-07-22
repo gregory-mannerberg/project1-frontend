@@ -19,6 +19,8 @@ import { ItemsComponent } from './items/items.component';
 import { ItemTypesComponent } from './item-types/item-types.component';
 import { FullItemsComponent } from './full-items/full-items.component';
 import { NavComponent } from './nav/nav.component';
+import { ItemLocationComponent } from './item-location/item-location.component';
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { NavComponent } from './nav/nav.component';
     ItemsComponent,
     ItemTypesComponent,
     FullItemsComponent,
-    NavComponent
+    NavComponent,
+    ItemLocationComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { NavComponent } from './nav/nav.component';
     ButtonModule,
     DialogModule,
     BrowserAnimationsModule,
-    MenubarModule
+    MenubarModule,
+    AccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

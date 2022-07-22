@@ -19,6 +19,8 @@ export class ItemsComponent implements OnInit {
 
   isNew: boolean = false;
 
+  showing: number[] = [];
+
   constructor(private itemService: ItemService) { 
   }
 
@@ -69,6 +71,14 @@ export class ItemsComponent implements OnInit {
       });    
     }
     this.dialog = false;
+  }
+
+  setShowLocation(item: Item) {
+    this.showing.push(item.id);
+  }
+
+  showLocation(item: Item) {
+    return this.showing.includes(item.id);
   }
 
 }

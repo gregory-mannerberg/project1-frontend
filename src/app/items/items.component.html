@@ -38,7 +38,7 @@
                 <td>{{item.datePurchased}}</td>
                 <td>{{item.purchasePrice | currency }}</td>
                 <td>{{item.itemTypeId}}</td>
-                <td>{{item.locationId}}</td>
+                <td ><a [routerLink]="['/location', item.id]">{{item.locationId}}</a></td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="edit(item)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteItem(item)"></button>
