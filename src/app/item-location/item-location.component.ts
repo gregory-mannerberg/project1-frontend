@@ -5,6 +5,7 @@ import { LocationService } from '../services/location.service';
 import { WarehouseService } from '../services/warehouse.service';
 import { Item } from '../models/item';
 import { Input } from '@angular/core';
+import { FullLocation } from '../models/full-location';
 
 @Component({
   selector: 'app-item-location',
@@ -19,7 +20,7 @@ export class ItemLocationComponent implements OnInit {
 
   location: Location = {} as Location;
 
-  data: any = {};
+  fullLocation: FullLocation = {} as FullLocation;
 
   constructor(private locationService: LocationService,
     private warehouseService: WarehouseService) { }
@@ -30,19 +31,28 @@ export class ItemLocationComponent implements OnInit {
         this.location = location;
         this.warehouseService.findById(this.location.id).subscribe(warehouse => {
           this.warehouse = warehouse;
-          this.data.warehouseId = this.location.warehouseId;
-          this.data.locationId = this.location.id;
-          this.data.row = this.location.row;
-          this.data.block = this.location.block;
-          this.data.shelf = this.location.shelf;
-          this.data.address = this.warehouse.address;
-          this.data.city = this.warehouse.city;
-          this.data.state = this.warehouse.state;
-          this.data.country = this.warehouse.country;
-          this.data.postalCode = this.warehouse.postalCode;
+          this.fullLocation = this.composeFullLocation(warehouse, location);
+          console.log(warehouse);
+          console.log(location);
+          console.log(this.fullLocation);
         });
       });
     }
+  }
+
+  composeFullLocation(warehouse: Warehouse, location: Location): FullLocation {
+    let fl: FullLocation = {} as FullLocation;
+    fl.warehouseId = location.warehouseId;
+    fl.locationId = location.id;
+    fl.row = location.row;
+    fl.block = location.block;
+    fl.shelf = location.shelf;
+    fl.address = warehouse.address;
+    fl.city = warehouse.city;
+    fl.state = warehouse.state;
+    fl.country = warehouse.country;
+    fl.postalCode = warehouse.postalCode;
+    return fl;
   }
 
 
