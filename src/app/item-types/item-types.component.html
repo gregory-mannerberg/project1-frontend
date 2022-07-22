@@ -1,0 +1,79 @@
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="flex align-items-center justify-content-between">
+            <h2 class="m-0">Manage Item Types</h2>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedItemTypes()" [disabled]="!selectedItemTypes || !selectedItemTypes.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="itemTypes" [rows]="10" [paginator]="true" responsiveLayout="scroll"
+        [(selection)]="selectedItemTypes" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="manufacturer">Manufacturer <p-sortIcon field="manufacturer"></p-sortIcon></th>
+                <th pSortableColumn="color">Color <p-sortIcon field="color"></p-sortIcon></th>
+                <th pSortableColumn="unit">Unit <p-sortIcon field="unit"></p-sortIcon></th>
+                <th pSortableColumn="dateDiscontinued">Date Discontinued <p-sortIcon field="dateDiscontinued"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-itemType>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="itemType"></p-tableCheckbox>
+                </td>
+                <td>{{itemType.id}}</td>
+                <td>{{itemType.name}}</td>
+                <td>{{itemType.manufacturer}}</td>
+                <td>{{itemType.color}}</td>
+                <td>{{itemType.unit}}</td>
+                <td>{{itemType.dateDiscontinued}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="edit(itemType)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteItemType(itemType)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Item Type Details" [modal]="true" styleClass="p-fluid" >
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Name </label>
+            <input pInputText id="name" [(ngModel)]="itemType.name" />
+        </div>
+        <div class="field">
+            <label for="manufacturer">Manufacturer </label>
+            <input id="manufacturer" pInputText [(ngModel)]="itemType.manufacturer" />
+        </div>
+        <div class="field">
+          <label for="color">Color </label>
+          <input id="color" pInputText [(ngModel)]="itemType.color" />
+        </div>
+        <div class="field">
+          <label for="unit">Unit</label>
+          <input id="unit" pInputText [(ngModel)]="itemType.unit" />
+        </div>
+        <div class="field">
+          <label for="dateDiscontinued">Date Discontinued</label>
+          <input type="date" id="dateDiscontinued" pInputText [(ngModel)]="itemType.dateDiscontinued" />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveItemType()"></button>
+    </ng-template>
+</p-dialog>
